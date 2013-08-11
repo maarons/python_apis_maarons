@@ -101,15 +101,15 @@ class AmazonInstantVideo():
             return None
         return minidom.parseString(response.read())
 
+    # Episode number is not used because omitting it yields better results.
     def search(self, title, season, episode, episode_title):
         data = {
             "Operation": "ItemSearch",
             "SearchIndex": "Video",
             "ResponseGroup": "Small,Images",
-            "Keywords": "{} season {} episode {} {}".format(
+            "Keywords": "{} season {} {}".format(
                 title,
                 season,
-                episode,
                 episode_title,
             ),
         }
