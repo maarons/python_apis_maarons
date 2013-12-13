@@ -49,4 +49,4 @@ def authenticate(signed_request, fb_app_secret):
         if sig != expected_sig:
             raise LoginException("Bad paylod signature")
 
-        return data["user_id"]
+        return int(data["user_id"])
