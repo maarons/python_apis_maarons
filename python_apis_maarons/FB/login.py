@@ -2,6 +2,7 @@ from base64 import urlsafe_b64decode
 import json
 import hashlib
 import hmac
+from time import time
 
 class LoginException(Exception):
     pass
@@ -48,5 +49,8 @@ def authenticate(signed_request, fb_app_secret):
 
         if sig != expected_sig:
             raise LoginException("Bad paylod signature")
+
+        if data["issued_at"] < time() - 3600 * 24:
+            raise LoginException("Request is too old")
 
         return int(data["user_id"])
